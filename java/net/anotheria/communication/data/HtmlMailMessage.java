@@ -29,7 +29,7 @@ import javax.mail.internet.MimeMultipart;
  */
 public class HtmlMailMessage extends AbstractMailMessage  implements Serializable{
 	
-	private static final String TEXT_HTML = "text/html;charset=windows-1251";
+	private static final String TEXT_HTML = "text/html;charset=iso-8859-15";
 	private static final String TEXT_PLAIN = "text/plain";
 	
 	private String recipient;
