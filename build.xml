@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<project name="ano-comm" default="jar" basedir=".">
+		
+	<property name="dist.dir" value="./dist"/>
+	<property name="bin.dir" value="./bin"/>
+	<property name="src.dir" value="./java"/>
+	<property name="lib.dir" value="./lib"/>
+	<property name="jarname" value="ano-comm.jar" />
+
+	<target name="compile">
+		<mkdir dir="${bin.dir}"/> 
+		<javac destdir="${bin.dir}" srcdir="${src.dir}" debug="on" deprecation="off" optimize="on">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${dist.dir}"/>
+		<jar jarfile="${dist.dir}/${jarname}">
+         	<fileset dir="${bin.dir}">
+         		<include name="**/*"/>
+         	</fileset>
+      	</jar>
+   	</target>
+	
+</project>
