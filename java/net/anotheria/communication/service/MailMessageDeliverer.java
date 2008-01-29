@@ -6,7 +6,6 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Provider;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.URLName;
 import javax.mail.internet.AddressException;
 
 import net.anotheria.communication.data.AbstractMailMessage;
@@ -17,17 +16,12 @@ import net.anotheria.communication.exceptions.UnsupportedMessageTypeException;
 
 import org.apache.log4j.Logger;
 
-import com.sun.mail.smtp.SMTPTransport;
-
 import java.io.IOException;
 import java.util.Properties;
 
 
 /**
- * @author skyball
- *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
+ * @author another
  */
 public class MailMessageDeliverer implements IMessageDeliverer {
 
@@ -36,11 +30,8 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 	
 	private static Logger log;
 	
-	private String resServer;   
-	private String resUser;   
-	private String resPassword;   
-	private String resDebug;
-	private boolean popBeforeSmtp;
+	private MailDelivererConfig config;
+	
 	
 	static{
 		log = Logger.getLogger(MailMessageDeliverer.class);
@@ -54,32 +45,16 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 			log.error("load properties", e);
 		}
 		
-		popBeforeSmtp = false;
-		resServer   = props.getProperty("mail.smtp.host");
-		resUser     = props.getProperty("mail.smtp.user");
-		resPassword = props.getProperty("mail.smtp.password");
-		resDebug 	= props.getProperty("mail.smtp.debug");
-		
-		try{
-			popBeforeSmtp = props.getProperty("mail.smtp.popbeforesmtp").equals("true");
-		}catch(Exception ignored){}
-		
-		
-		resServer = System.getProperty("mail.smtp.host",resServer);
-		resUser   = System.getProperty("user",resUser);
-		resPassword = System.getProperty("password",resPassword);
-		resDebug  = System.getProperty("mail.smtp.debug", resDebug);
-		popBeforeSmtp = System.getProperty("mail.smtp.popbeforesmtp", ""+popBeforeSmtp).equals("true");
-		
-		props.put("mail.smtp.host", resServer);
+		config = new MailDelivererConfig();
+		props.put("mail.smtp.host", config.getServer());
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.debug", "true");
+		props.put("mail.debug", config.isDebugOn());
 		
  		mailSession = Session.getInstance(props, new SMTPAuthenticator());
  		
-		mailSession.setDebug((resDebug != null) && resDebug.equalsIgnoreCase("true"));
+		mailSession.setDebug(config.isDebugOn());
 		//mailSession.setPasswordAuthentication(new URLName(resServer),new PasswordAuthentication(resUser, resPassword));
-		log.debug("initialized with:"+resUser+":"+resPassword+"@"+resServer);
+		log.debug("initialized with:"+config);
 		log.debug("\n\n************************************************");
 		log.debug("* to reconfigure this provider set:            *");
 		log.debug("* mail.smtp.host                               *");
@@ -88,8 +63,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 		log.debug("* mail.smtp.debug                              *");
 		log.debug("* mail.smtp.popbeforesmtp                      *");
 		log.debug("************************************************\n\n");
-		System.out.println("initialized with:"+resUser+":"+resPassword+"@"+resServer);
-		System.out.println("pop before smtp: "+popBeforeSmtp);
+		System.out.println("Initialized with: "+config);
 		System.out.println("mail.mime.charset="+System.getProperty("mail.mime.charset"));
 	}
 
@@ -104,10 +78,10 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 	
 	private void deliverMailMessage(AbstractMailMessage message) throws MessageDeliverException{
 		try {
-			/*
-			if (popBeforeSmtp)
+			
+			if (config.isPopBeforeSmtpOn())
 				popBeforeSmtp();
-				*/
+				
 			//SMTPTransport t = (SMTPTransport)mailSession.getTransport("smtp");
 			//t.connect(resServer, resUser, resPassword);
 			//System.out.println("Response: "+t.getLastServerResponse());
@@ -125,7 +99,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 	private void popBeforeSmtp(){
 		try {
 			Provider prov = mailSession.getProvider("pop3");
-			mailSession.getStore(prov).connect(resServer, resUser , resPassword);
+			mailSession.getStore(prov).connect(config.getServer(), config.getUser() , config.getPassword());
 			mailSession.getStore(prov).close();
 		} catch(NoSuchProviderException e) {
 			log.error("popBeforeSmtp1", e);
@@ -136,8 +110,8 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 	
 	   private class SMTPAuthenticator extends javax.mail.Authenticator {
 	        public PasswordAuthentication getPasswordAuthentication() {
-	           String username = resUser;
-	           String password = resPassword;
+	           String username = config.getUser();
+	           String password = config.getPassword();
 	           return new PasswordAuthentication(username, password);
 	        }
 	    }
