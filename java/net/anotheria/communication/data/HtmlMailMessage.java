@@ -1,7 +1,6 @@
 package net.anotheria.communication.data;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,11 +35,11 @@ public class HtmlMailMessage extends AbstractMailMessage  implements Serializabl
 	private String htmlContent;
 	private String plainTextContent;
 	
-	private Map imageMap; 	 
+	private Map<String,URL> imageMap; 	 
 	
 	public HtmlMailMessage() {
 		super();
-		imageMap = new HashMap();
+		imageMap = new HashMap<String,URL>();
 	}
 	
 	public Message transformToMessage(Session session) throws AddressException, MessagingException { 

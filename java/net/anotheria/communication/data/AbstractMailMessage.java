@@ -1,8 +1,8 @@
 package net.anotheria.communication.data;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.mail.Message;
@@ -26,7 +26,7 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 	private String subject;
 	private String message;
 	private String replyTo;
-	private Map header = new HashMap();
+	private Map<String,String> headers = new HashMap<String,String>();
 	
 	/**
 	 * @see AbstractMessage#getMessageType()
@@ -123,14 +123,14 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 	}
 	
 	public void addHeader(String name, String value) {
-		header.put(name, value);
+		headers.put(name, value);
 	}
 
 	public void addHeadersToMessage(Message msg) throws MessagingException {
-		Iterator allHeaders = header.entrySet().iterator();
-		while(allHeaders.hasNext()) {
-			Map.Entry h = (Map.Entry) allHeaders.next();
-			msg.addHeader((String) h.getKey(), (String) h.getValue());
+		Collection<String> allHeaders = headers.keySet();
+		for(String key : allHeaders) {
+			String val = headers.get(key);
+			msg.addHeader(key, val);
 		}
 	}
 }

@@ -39,11 +39,6 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 
 	public MailMessageDeliverer(){
 		Properties props = new Properties();
-		try{
-			props.load(MailMessageDeliverer.class.getResourceAsStream("/mail.properties"));
-		}catch(IOException e){
-			log.error("load properties", e);
-		}
 		
 		config = new MailDelivererConfig();
 		props.put("mail.smtp.host", config.getServer());
