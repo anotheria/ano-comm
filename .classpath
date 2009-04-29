@@ -6,6 +6,6 @@
 	<classpathentry kind="lib" path="lib/mail.jar"/>
 	<classpathentry kind="lib" path="lib/activation.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/moskito-core.jar"/>
+	<classpathentry kind="lib" path="lib/configureme.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

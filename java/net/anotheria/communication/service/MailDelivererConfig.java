@@ -1,30 +1,24 @@
 package net.anotheria.communication.service;
 
 import org.apache.log4j.Logger;
+import org.configureme.ConfigurationManager;
+import org.configureme.annotations.AfterConfiguration;
+import org.configureme.annotations.Configure;
+import org.configureme.annotations.ConfigureMe;
 
-import net.java.dev.moskito.core.configuration.ConfigurationServiceFactory;
-import net.java.dev.moskito.core.configuration.IConfigurable;
+@ConfigureMe(name="mail")
+public class MailDelivererConfig {
 
-public class MailDelivererConfig implements IConfigurable{
-
-	public static final String KEY_PREFIX = "mail.smtp.";
-	
-	public static final String KEY_SERVER = KEY_PREFIX+"host";
-	public static final String KEY_USER   = KEY_PREFIX+"user";
-	public static final String KEY_PASSWORD = KEY_PREFIX+"password";
-	public static final String KEY_DEBUG = KEY_PREFIX+"debug";
-	public static final String KEY_POPBEFORESMTP = KEY_PREFIX+"popbeforesmtp";
-	
-	private String resServer;   
-	private String resUser;   
-	private String resPassword;   
-	private boolean resDebug;
-	private boolean popBeforeSmtp;
+	@Configure private String host;   
+	@Configure private String user;   
+	@Configure private String password;   
+	@Configure private boolean debug;
+	@Configure private boolean popBeforeSmtp;
 
 	private static Logger log = Logger.getLogger(MailDelivererConfig.class);
 
 	public MailDelivererConfig(){
-		ConfigurationServiceFactory.getConfigurationService().addConfigurable(this);
+		ConfigurationManager.INSTANCE.configure(this);
 	}
 	
 	public String getConfigurationName() {
@@ -32,48 +26,51 @@ public class MailDelivererConfig implements IConfigurable{
 	}
 
 
-	public void setProperty(String key, String value) {
-		if (KEY_SERVER.equals(key))
-			resServer = value;
-		if (KEY_USER.equals(key))
-			resUser = value;
-		if (KEY_PASSWORD.equals(key))
-			resPassword = value;
-		if (KEY_DEBUG.equals(key))
-			resDebug = value.equalsIgnoreCase("true");
-		if (KEY_POPBEFORESMTP.equals(key))
-			popBeforeSmtp = value.equalsIgnoreCase("true");
-	}
-
-	public void notifyConfigurationFinished() {
+	@AfterConfiguration public void notifyConfigurationFinished() {
 		log.info(getConfigurationName()+" config finished: "+this);
 	}
 
-	public void notifyConfigurationStarted() {
-		
+	public String toString(){
+		return getUser()+"!"+getPassword()+":"+getHost()+" - "+isDebug()+"/"+isPopBeforeSmtp();
 	}
-	
-	public String getServer(){
-		return resServer;
+
+	public String getHost() {
+		return host;
 	}
-	
-	public String getUser(){
-		return resUser;
+
+	public void setHost(String host) {
+		this.host = host;
 	}
-	
-	public String getPassword(){
-		return resPassword;
+
+	public String getUser() {
+		return user;
 	}
-	
-	public boolean isDebugOn(){
-		return resDebug;
+
+	public void setUser(String user) {
+		this.user = user;
 	}
-	
-	public boolean isPopBeforeSmtpOn(){
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isDebug() {
+		return debug;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	public boolean isPopBeforeSmtp() {
 		return popBeforeSmtp;
 	}
-	
-	public String toString(){
-		return resUser+"!"+resPassword+":"+resServer+" - "+resDebug+"/"+popBeforeSmtp;
+
+	public void setPopBeforeSmtp(boolean popBeforeSmtp) {
+		this.popBeforeSmtp = popBeforeSmtp;
 	}
 }

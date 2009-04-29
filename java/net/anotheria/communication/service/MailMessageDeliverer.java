@@ -1,5 +1,7 @@
 package net.anotheria.communication.service;
 
+import java.util.Properties;
+
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
@@ -15,9 +17,6 @@ import net.anotheria.communication.exceptions.MessagingServiceException;
 import net.anotheria.communication.exceptions.UnsupportedMessageTypeException;
 
 import org.apache.log4j.Logger;
-
-import java.io.IOException;
-import java.util.Properties;
 
 
 /**
@@ -41,13 +40,13 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 		Properties props = new Properties();
 		
 		config = new MailDelivererConfig();
-		props.put("mail.smtp.host", config.getServer());
+		props.put("mail.smtp.host", config.getHost());
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.debug", config.isDebugOn());
+		props.put("mail.debug", config.isDebug());
 		
  		mailSession = Session.getInstance(props, new SMTPAuthenticator());
  		
-		mailSession.setDebug(config.isDebugOn());
+		mailSession.setDebug(config.isDebug());
 		//mailSession.setPasswordAuthentication(new URLName(resServer),new PasswordAuthentication(resUser, resPassword));
 		log.debug("initialized with:"+config);
 		log.debug("\n\n************************************************");
@@ -74,7 +73,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 	private void deliverMailMessage(AbstractMailMessage message) throws MessageDeliverException{
 		try {
 			
-			if (config.isPopBeforeSmtpOn())
+			if (config.isPopBeforeSmtp())
 				popBeforeSmtp();
 				
 			//SMTPTransport t = (SMTPTransport)mailSession.getTransport("smtp");
@@ -94,7 +93,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 	private void popBeforeSmtp(){
 		try {
 			Provider prov = mailSession.getProvider("pop3");
-			mailSession.getStore(prov).connect(config.getServer(), config.getUser() , config.getPassword());
+			mailSession.getStore(prov).connect(config.getHost(), config.getUser() , config.getPassword());
 			mailSession.getStore(prov).close();
 		} catch(NoSuchProviderException e) {
 			log.error("popBeforeSmtp1", e);
