@@ -23,8 +23,8 @@ import javax.mail.internet.MimeMultipart;
 /**
  * This class implements an <code>AbstractMailMessage</code> to send an HTML-Mail with
  * alternative Plain-Text-View. Images may be attached to be referenced within the HTML-Code.
- * @author Michel F�geisen
- * @author Oliver T�nse
+ * @author Michel Fuegeisen
+ * @author Oliver Toense
  */
 public class HtmlMailMessage extends AbstractMailMessage  implements Serializable{
 	
