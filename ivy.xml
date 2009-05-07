@@ -8,6 +8,7 @@
     </publications>
     <dependencies>
         <dependency org="org.apache" name="log4j" rev="stable" transitive="false"/>
+        <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true"/>
 
         <dependency org="com.sun" name="mail" rev="stable" transitive="false"/>
         <dependency org="com.sun" name="activation" rev="stable" transitive="false"/>
