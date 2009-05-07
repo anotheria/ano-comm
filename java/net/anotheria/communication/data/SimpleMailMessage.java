@@ -1,6 +1,7 @@
 package net.anotheria.communication.data;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,7 +22,11 @@ public class SimpleMailMessage extends AbstractMailMessage  implements Serializa
 
 	public Message transformToMessage(Session session) throws AddressException, MessagingException{ 
 		Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(getSender()));
+		try{
+			msg.setFrom(new InternetAddress(getSender(), getSenderName()));
+		}catch(UnsupportedEncodingException e){
+			msg.setFrom(new InternetAddress(getSender()));
+		}
         InternetAddress[] receivers = new InternetAddress[1];
         receivers[0] = new InternetAddress(getRecipient());
 		InternetAddress[] replyTo = new InternetAddress[1];
