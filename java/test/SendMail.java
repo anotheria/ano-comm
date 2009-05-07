@@ -10,7 +10,8 @@ public class SendMail {
 		BasicConfigurator.configure();
 		MessagingService service = MessagingService.getInstance();
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setSender("registration@adoptive.de");
+		mail.setSender("scoreshop@anotheria.net");
+		mail.setSenderName("Golf-Industries OnlineShop");
 		//mail.setRecipient("leon@leon-rosenberg.net");
 		//mail.setRecipient("business@affairo.com");
 		mail.setRecipient("rosenberg.leon@gmail.com");
