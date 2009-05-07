@@ -1,6 +1,7 @@
 package net.anotheria.communication.data;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,7 +46,11 @@ public class HtmlMailMessage extends AbstractMailMessage  implements Serializabl
 	public Message transformToMessage(Session session) throws AddressException, MessagingException { 
 		 		
 		Message msg = new MimeMessage(session);
-         msg.setFrom(new InternetAddress(getSender()));
+		try{
+			msg.setFrom(new InternetAddress(getSender(), getSenderName()));
+		}catch(UnsupportedEncodingException e){
+			msg.setFrom(new InternetAddress(getSender()));
+		}
 		InternetAddress[] receivers = new InternetAddress[1];
 		receivers[0] = new InternetAddress(getRecipient());
 		InternetAddress[] replyTo = new InternetAddress[1];
@@ -75,9 +80,9 @@ public class HtmlMailMessage extends AbstractMailMessage  implements Serializabl
 			htmlMultipart.addBodyPart(htmlContent);				
 				
 			// part for related images					
-			Iterator allImages = imageMap.entrySet().iterator();
+			Iterator<Map.Entry<String, URL>> allImages = imageMap.entrySet().iterator();
 			while(allImages.hasNext()) {
-				Map.Entry imageDef = (Map.Entry) allImages.next();	
+				Map.Entry<String, URL> imageDef = allImages.next();	
 				htmlMultipart.addBodyPart(generateImageContent((URL) imageDef.getValue(), (String) imageDef.getKey()));
 			}			
 			htmlContainer.setContent(htmlMultipart);
