@@ -32,18 +32,32 @@ public class HtmlMailMessage extends AbstractMailMessage  implements Serializabl
 	private static final String TEXT_HTML = "text/html;charset=iso-8859-15";
 	private static final String TEXT_PLAIN = "text/plain";
 	
+	/**
+	 * The recipient of the message
+	 */
 	private String recipient;
+	/**
+	 * The html content part
+	 */
 	private String htmlContent;
+	/**
+	 * The plain text content part
+	 */
 	private String plainTextContent;
-	
+	/**
+	 * Map with includeable urls
+	 */
 	private Map<String,URL> imageMap; 	 
 	
+	/**
+	 * Creates a new message
+	 */
 	public HtmlMailMessage() {
 		super();
 		imageMap = new HashMap<String,URL>();
 	}
 	
-	public Message transformToMessage(Session session) throws AddressException, MessagingException { 
+	@Override public Message transformToMessage(Session session) throws AddressException, MessagingException { 
 		 		
 		Message msg = new MimeMessage(session);
 		try{
@@ -112,22 +126,30 @@ public class HtmlMailMessage extends AbstractMailMessage  implements Serializabl
 		return imageContent;
 	}
 		
+	/**
+	 * Return the recipient
+	 * @return a string with recipient's adress
+	 */
 	public String getRecipient() {
 		return recipient;
 	}
 	
 	/**
 	 * Sets the recipient's email address
-	 * @param recipient
+	 * @param recipient the address to set
 	 */
 	public void setRecipient(String recipient) {
 		this.recipient = recipient;
 	}
 	
-	public String toString(){
+	@Override public String toString(){
 		return super.toString()+" to:"+recipient;
 	}	
 	
+	/**
+	 * Returns the html content part
+	 * @return the html content part as string.
+	 */
 	public String getHtmlContent() {
 		return htmlContent;
 	}

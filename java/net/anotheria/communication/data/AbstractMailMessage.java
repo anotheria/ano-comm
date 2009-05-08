@@ -14,24 +14,39 @@ import net.anotheria.communication.service.IMessageTypes;
 
 
 /**
- * @author skyball
- *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
+ * The base class for mail messages.
  */
 public abstract class AbstractMailMessage extends AbstractMessage implements Serializable {
 
+	/**
+	 * Sender address of the message
+	 */
 	private String sender;
+	/**
+	 * Sender personal name of the message
+	 */
     private String senderName=null;
+    /**
+     * Subject of the message
+     */
 	private String subject;
+	/**
+	 * Message body
+	 */
 	private String message;
+	/*
+	 * Reply-to header field
+	 */
 	private String replyTo;
+	/**
+	 * A map of addition headers
+	 */
 	private Map<String,String> headers = new HashMap<String,String>();
 	
 	/**
 	 * @see AbstractMessage#getMessageType()
 	 */
-	public int getMessageType() {
+	@Override public int getMessageType() {
 		return IMessageTypes.TYPE_MAIL;
 	}
 
@@ -116,17 +131,34 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 		this.message = message;
 	}
 
+	/**
+	 * This method is called to create a new java.mail.message
+	 * @param session the associated session
+	 * @return
+	 * @throws AddressException
+	 * @throws MessagingException
+	 */
 	public abstract Message transformToMessage(Session session) throws AddressException, MessagingException;
 	
-	public String toString(){
+	@Override public String toString(){
 		return "from:"+sender;
 	}
 	
+	/**
+	 * Adds a header field to the message
+	 * @param name name of the headerfiled
+	 * @param value value of the header field
+	 */
 	public void addHeader(String name, String value) {
 		headers.put(name, value);
 	}
 
-	public void addHeadersToMessage(Message msg) throws MessagingException {
+	/**
+	 * Called by extending class to set headers in the message after transformation.
+	 * @param msg
+	 * @throws MessagingException
+	 */
+	protected void addHeadersToMessage(Message msg) throws MessagingException {
 		Collection<String> allHeaders = headers.keySet();
 		for(String key : allHeaders) {
 			String val = headers.get(key);
