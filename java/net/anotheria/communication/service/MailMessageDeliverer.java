@@ -27,15 +27,11 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 
 	private Session mailSession;
 	
-	private static Logger log;
+	private static Logger log = Logger.getLogger(MailMessageDeliverer.class);
 	
 	private MailDelivererConfig config;
 	
 	
-	static{
-		log = Logger.getLogger(MailMessageDeliverer.class);
-	}
-
 	public MailMessageDeliverer(){
 		Properties props = new Properties();
 		
@@ -57,8 +53,8 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 		log.debug("* mail.smtp.debug                              *");
 		log.debug("* mail.smtp.popbeforesmtp                      *");
 		log.debug("************************************************\n\n");
-		System.out.println("Initialized with: "+config);
-		System.out.println("mail.mime.charset="+System.getProperty("mail.mime.charset"));
+		log.info("Initialized with: "+config);
+		log.info("mail.mime.charset="+System.getProperty("mail.mime.charset"));
 	}
 
 	/**

@@ -1,7 +1,8 @@
 package net.anotheria.communication.service;
 
-import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.anotheria.communication.data.AbstractMessage;
 
@@ -9,28 +10,25 @@ import net.anotheria.communication.data.AbstractMessage;
 public class MessagingService implements IMessagingService{
 	
 	
-	private Hashtable queues;
+	private Map<Integer, IMessageQueue> queues;
 	
-	private static MessagingService instance;
+	private static MessagingService instance = new MessagingService();
 	
 	
 	protected MessagingService(){
-		queues = new Hashtable();
+		queues = new ConcurrentHashMap<Integer, IMessageQueue>();
 		setup();
 	}
 	
 	public static MessagingService getInstance(){
-		if (instance==null){
-			instance = new MessagingService();
-		}
 		return instance;
 	}
 
 	public boolean sendMessage(AbstractMessage msg) throws Exception{
 		int messageType = msg.getMessageType();
-		IMessageQueue queue = (IMessageQueue) queues.get(new Integer(messageType));
+		IMessageQueue queue = queues.get(new Integer(messageType));
 		if (queue==null)
-			throw new RuntimeException("Unsupported message type: "+messageType);
+			throw new IllegalArgumentException("Unsupported message type: "+messageType);
 		return queue.queue(msg);
 	}
 	

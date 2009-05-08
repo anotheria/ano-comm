@@ -15,10 +15,10 @@ import net.anotheria.communication.exceptions.MessagingServiceException;
 public class GenericMessageQueue implements IMessageQueue {
 	
 	private IMessageDeliverer deliverer;
-	private List errors;
+	private List<Exception> errors;
 	
 	public GenericMessageQueue() {
-		errors = new ArrayList();
+		errors = new ArrayList<Exception>();
 	}
 	
 	/**
@@ -42,10 +42,10 @@ public class GenericMessageQueue implements IMessageQueue {
 		deliverer = aDeliverer;
 	}
 	
-	public List getErrors() {
+	public List<Exception> getErrors() {
 		synchronized(errors) {
-			List oldErrors = errors;
-			errors = new ArrayList();
+			List<Exception> oldErrors = errors;
+			errors = new ArrayList<Exception>();
 			return oldErrors;
 		}
 	}

@@ -1,21 +1,24 @@
 package net.anotheria.communication.data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class MultiSMSMessage extends AbstractSMSMessage implements Serializable{
-	private Vector recepients;
+	private List<String> recepients;
 
 	public MultiSMSMessage(String text){
-	    this(text, new Vector());
+		super(text);
+	    recepients = new ArrayList<String>();
 	}
 
-	public MultiSMSMessage(String text, Vector recepientList){
-	    super(text);
-		this.recepients = recepientList;
+	public MultiSMSMessage(String text, Vector<String> recepientList){
+	    this(text);
+	    recepients.addAll(recepientList);
 	}
 
-	public Vector getRecepients(){
+	public List<String> getRecepients(){
 	    return recepients;
 	}
 
@@ -25,7 +28,7 @@ public class MultiSMSMessage extends AbstractSMSMessage implements Serializable{
 
 	public void addRecepient(String recepient){
 	    if (recepients.indexOf(recepient)==-1)
-			recepients.addElement(recepient);
+			recepients.add(recepient);
 	}
 
     public String getRecepientString() {
@@ -33,7 +36,7 @@ public class MultiSMSMessage extends AbstractSMSMessage implements Serializable{
             return  "";
         String ret = "";
         for (int i = 0; i < recepients.size(); i++) {
-            ret += (String)recepients.elementAt(i);
+            ret += (String)recepients.get(i);
             if (i < recepients.size() - 1)
                 ret += ",";
         }
