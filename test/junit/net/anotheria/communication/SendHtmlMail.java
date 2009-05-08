@@ -1,4 +1,4 @@
-package test;
+package net.anotheria.communication;
 
 import org.apache.log4j.BasicConfigurator;
 
