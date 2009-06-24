@@ -4,18 +4,10 @@ import java.util.List;
 
 import net.anotheria.communication.data.AbstractMessage;
 
-//standart imports
+public interface IMessagingService {
 
-/**
- * noch nichts
- */
-
-public interface IMessagingService{
-	/**
-	 * no comment
-	 */
 	public boolean sendMessage(AbstractMessage msg) throws Exception;
-	
-	public List getErrors(int messageType);
+
+	public List<Exception> getErrors(int messageType);
 
 }

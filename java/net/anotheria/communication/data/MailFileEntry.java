@@ -4,17 +4,17 @@ import java.io.File;
 
 /**
  * @author lanny
- *
- * To change this generated comment edit the template variable "typecomment":
- * Window>Preferences>Java>Templates.
- * To enable and disable the creation of type comments go to
- * Window>Preferences>Java>Code Generation.
+ * 
+ *         To change this generated comment edit the template variable "typecomment": Window>Preferences>Java>Templates. To enable and
+ *         disable the creation of type comments go to Window>Preferences>Java>Code Generation.
  */
 public class MailFileEntry {
 	private File file;
 	private String filename;
+
 	/**
 	 * Returns the file.
+	 * 
 	 * @return File
 	 */
 	public File getFile() {
@@ -23,6 +23,7 @@ public class MailFileEntry {
 
 	/**
 	 * Returns the filename.
+	 * 
 	 * @return String
 	 */
 	public String getFilename() {
@@ -31,7 +32,9 @@ public class MailFileEntry {
 
 	/**
 	 * Sets the file.
-	 * @param file The file to set
+	 * 
+	 * @param file
+	 *            The file to set
 	 */
 	public void setFile(File file) {
 		this.file = file;
@@ -39,23 +42,25 @@ public class MailFileEntry {
 
 	/**
 	 * Sets the filename.
-	 * @param filename The filename to set
+	 * 
+	 * @param filename
+	 *            The filename to set
 	 */
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
-	public MailFileEntry(File f){
+
+	public MailFileEntry(File f) {
 		this(f, f.getName());
 	}
-	
-	public MailFileEntry(File f, String name){
+
+	public MailFileEntry(File f, String name) {
 		this.file = f;
 		this.filename = name;
 	}
-	
-	public String toString(){
-		return file.getName()+" as "+filename;
+
+	public String toString() {
+		return file.getName() + " as " + filename;
 	}
 
 }

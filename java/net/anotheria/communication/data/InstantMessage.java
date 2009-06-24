@@ -4,14 +4,15 @@ import java.io.Serializable;
 
 import net.anotheria.communication.service.IMessageTypes;
 
+public class InstantMessage extends AbstractMessage implements Serializable {
 
-public class InstantMessage extends AbstractMessage  implements Serializable{
+	private static final long serialVersionUID = 5894201237509006815L;
 
 	private String recepient;
 	private String messageBody;
 	private String sender;
-	
-	public InstantMessage(String aSender, String aRecepient, String aMessageBody){
+
+	public InstantMessage(String aSender, String aRecepient, String aMessageBody) {
 		sender = aSender;
 		recepient = aRecepient;
 		messageBody = aMessageBody;
@@ -23,11 +24,10 @@ public class InstantMessage extends AbstractMessage  implements Serializable{
 	public int getMessageType() {
 		return IMessageTypes.TYPE_IM;
 	}
-	
-	
 
 	/**
 	 * Gets the messageBody.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getMessageBody() {
@@ -36,7 +36,9 @@ public class InstantMessage extends AbstractMessage  implements Serializable{
 
 	/**
 	 * Sets the messageBody.
-	 * @param messageBody The messageBody to set
+	 * 
+	 * @param messageBody
+	 *            The messageBody to set
 	 */
 	public void setMessageBody(String messageBody) {
 		this.messageBody = messageBody;
@@ -44,6 +46,7 @@ public class InstantMessage extends AbstractMessage  implements Serializable{
 
 	/**
 	 * Gets the recepient.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getRecepient() {
@@ -52,7 +55,9 @@ public class InstantMessage extends AbstractMessage  implements Serializable{
 
 	/**
 	 * Sets the recepient.
-	 * @param recepient The recepient to set
+	 * 
+	 * @param recepient
+	 *            The recepient to set
 	 */
 	public void setRecepient(String recepient) {
 		this.recepient = recepient;
@@ -60,6 +65,7 @@ public class InstantMessage extends AbstractMessage  implements Serializable{
 
 	/**
 	 * Gets the sender.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getSender() {
@@ -68,7 +74,9 @@ public class InstantMessage extends AbstractMessage  implements Serializable{
 
 	/**
 	 * Sets the sender.
-	 * @param sender The sender to set
+	 * 
+	 * @param sender
+	 *            The sender to set
 	 */
 	public void setSender(String sender) {
 		this.sender = sender;

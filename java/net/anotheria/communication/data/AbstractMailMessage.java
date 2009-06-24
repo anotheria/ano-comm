@@ -12,12 +12,12 @@ import javax.mail.internet.AddressException;
 
 import net.anotheria.communication.service.IMessageTypes;
 
-
 /**
  * The base class for mail messages.
  */
 public abstract class AbstractMailMessage extends AbstractMessage implements Serializable {
 
+	private static final long serialVersionUID = -4454530548825883428L;
 	/**
 	 * Sender address of the message
 	 */
@@ -25,10 +25,10 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 	/**
 	 * Sender personal name of the message
 	 */
-    private String senderName=null;
-    /**
-     * Subject of the message
-     */
+	private String senderName = null;
+	/**
+	 * Subject of the message
+	 */
 	private String subject;
 	/**
 	 * Message body
@@ -41,17 +41,19 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 	/**
 	 * A map of addition headers
 	 */
-	private Map<String,String> headers = new HashMap<String,String>();
-	
+	private Map<String, String> headers = new HashMap<String, String>();
+
 	/**
 	 * @see AbstractMessage#getMessageType()
 	 */
-	@Override public int getMessageType() {
+	@Override
+	public int getMessageType() {
 		return IMessageTypes.TYPE_MAIL;
 	}
 
 	/**
 	 * Gets the sender.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getSender() {
@@ -60,31 +62,35 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Sets the sender.
-	 * @param sender The sender to set
+	 * 
+	 * @param sender
+	 *            The sender to set
 	 */
 	public void setSender(String sender) {
 		this.sender = sender;
 	}
-    
-    /**
-     * Gets the sender name
-     * @return Returns either the sender name (if set) or the sender
-     */
-    public String getSenderName() {
-        return ( senderName!=null ? senderName: sender);
-    }
-    
-    
-    /**
-     * Sets the sender name
-     * @param senderName
-     */
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
+
+	/**
+	 * Gets the sender name
+	 * 
+	 * @return Returns either the sender name (if set) or the sender
+	 */
+	public String getSenderName() {
+		return (senderName != null ? senderName : sender);
+	}
+
+	/**
+	 * Sets the sender name
+	 * 
+	 * @param senderName
+	 */
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
+	}
 
 	/**
 	 * Gets the subject.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getSubject() {
@@ -93,7 +99,9 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Sets the subject.
-	 * @param subject The subject to set
+	 * 
+	 * @param subject
+	 *            The subject to set
 	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
@@ -101,6 +109,7 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Gets the sender.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getReplyTo() {
@@ -109,14 +118,17 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Sets the sender.
-	 * @param sender The sender to set
+	 * 
+	 * @param sender
+	 *            The sender to set
 	 */
 	public void setReplyTo(String replyTo) {
 		this.replyTo = replyTo;
 	}
-    
+
 	/**
 	 * Gets the message.
+	 * 
 	 * @return Returns a String
 	 */
 	public String getMessage() {
@@ -125,7 +137,9 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Sets the message.
-	 * @param message The message to set
+	 * 
+	 * @param message
+	 *            The message to set
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -133,21 +147,27 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * This method is called to create a new java.mail.message
-	 * @param session the associated session
+	 * 
+	 * @param session
+	 *            the associated session
 	 * @return
 	 * @throws AddressException
 	 * @throws MessagingException
 	 */
 	public abstract Message transformToMessage(Session session) throws AddressException, MessagingException;
-	
-	@Override public String toString(){
-		return "from:"+sender;
+
+	@Override
+	public String toString() {
+		return "from:" + sender;
 	}
-	
+
 	/**
 	 * Adds a header field to the message
-	 * @param name name of the headerfiled
-	 * @param value value of the header field
+	 * 
+	 * @param name
+	 *            name of the headerfiled
+	 * @param value
+	 *            value of the header field
 	 */
 	public void addHeader(String name, String value) {
 		headers.put(name, value);
@@ -155,12 +175,13 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Called by extending class to set headers in the message after transformation.
+	 * 
 	 * @param msg
 	 * @throws MessagingException
 	 */
 	protected void addHeadersToMessage(Message msg) throws MessagingException {
 		Collection<String> allHeaders = headers.keySet();
-		for(String key : allHeaders) {
+		for (String key : allHeaders) {
 			String val = headers.get(key);
 			msg.addHeader(key, val);
 		}

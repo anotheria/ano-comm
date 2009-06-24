@@ -6,53 +6,49 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.anotheria.communication.data.AbstractMessage;
 
+public class MessagingService implements IMessagingService {
 
-public class MessagingService implements IMessagingService{
-	
-	
 	private Map<Integer, IMessageQueue> queues;
-	
+
 	private static MessagingService instance = new MessagingService();
-	
-	
-	protected MessagingService(){
+
+	protected MessagingService() {
 		queues = new ConcurrentHashMap<Integer, IMessageQueue>();
 		setup();
 	}
-	
-	public static MessagingService getInstance(){
+
+	public static MessagingService getInstance() {
 		return instance;
 	}
 
-	public boolean sendMessage(AbstractMessage msg) throws Exception{
+	public boolean sendMessage(AbstractMessage msg) throws Exception {
 		int messageType = msg.getMessageType();
 		IMessageQueue queue = queues.get(new Integer(messageType));
-		if (queue==null)
-			throw new IllegalArgumentException("Unsupported message type: "+messageType);
+		if (queue == null)
+			throw new IllegalArgumentException("Unsupported message type: " + messageType);
 		return queue.queue(msg);
 	}
-	
-	
-	
-	//die einzige methode wo konkrete klassen zum senden von messages verwendet werden.
-	private void setup(){
-	
+
+	private void setup() {
 		GenericMessageQueue mailQueue = new GenericMessageQueue();
 		mailQueue.setMessageDeliverer(new MailMessageDeliverer());
 		addMessageQueue(IMessageTypes.TYPE_MAIL, mailQueue);
 	}
-	
-	public void addMessageQueue(int type, IMessageQueue deliverer){
+
+	public void addMessageQueue(int type, IMessageQueue deliverer) {
 		queues.put(new Integer(type), deliverer);
 	}
-	
-	public void init(){}
-	public void deInit(){}
 
-	public List getErrors(int messageType) {
+	public void init() {
+	}
+
+	public void deInit() {
+	}
+
+	public List<Exception> getErrors(int messageType) {
 		IMessageQueue queue = (IMessageQueue) queues.get(new Integer(messageType));
-		if (queue==null)
-			throw new RuntimeException("Unsupported message type: "+messageType);
+		if (queue == null)
+			throw new RuntimeException("Unsupported message type: " + messageType);
 		return queue.getErrors();
 	}
 }
