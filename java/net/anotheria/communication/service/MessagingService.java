@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.anotheria.asg.util.listener.IServiceListener;
 import net.anotheria.communication.data.AbstractMessage;
 
 public class MessagingService implements IMessagingService {
@@ -50,5 +51,18 @@ public class MessagingService implements IMessagingService {
 		if (queue == null)
 			throw new RuntimeException("Unsupported message type: " + messageType);
 		return queue.getErrors();
+	}
+
+	@Override
+	public void addServiceListener(IServiceListener listener) {
+	}
+
+	@Override
+	public boolean hasServiceListeners() {
+		return false;
+	}
+
+	@Override
+	public void removeServiceListener(IServiceListener listener) {
 	}
 }

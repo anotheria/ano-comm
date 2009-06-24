@@ -11,5 +11,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="lib/json.jar"/>
 	<classpathentry kind="lib" path="lib/ano-util.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/ano-doc"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

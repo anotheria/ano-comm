@@ -16,6 +16,8 @@
         <dependency org="java.net" name="configureme" rev="latest" transitive="true" changing="true"/>
 		<!--  as soon as configureme is managed directly by ivy, this dependency should be obsolete -->
         <dependency org="org.json" name="json" rev="stable" transitive="false"/>
+        
+        <dependency org="anotheria.net" name="ano-doc"  rev="latest" transitive="true" changing="true"/>
 
     </dependencies>
 </ivy-module>
