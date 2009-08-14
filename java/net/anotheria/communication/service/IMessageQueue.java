@@ -8,7 +8,7 @@ public interface IMessageQueue {
 
 	public static final int MAX_ERRORS = 100;
 
-	public boolean queue(AbstractMessage message);
+	boolean queue(AbstractMessage message);
 
-	public List<Exception> getErrors();
+	List<Exception> getErrors();
 }
