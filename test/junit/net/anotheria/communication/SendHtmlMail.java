@@ -1,10 +1,9 @@
 package net.anotheria.communication;
 
-import org.apache.log4j.BasicConfigurator;
-
 import net.anotheria.communication.data.HtmlMailMessage;
-import net.anotheria.communication.data.SimpleMailMessage;
 import net.anotheria.communication.service.MessagingService;
+
+import org.apache.log4j.BasicConfigurator;
 
 public class SendHtmlMail {
 	public static void main(String a[]) throws Exception{
