@@ -31,7 +31,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 
 	private static final long serialVersionUID = -7844502191961385383L;
 
-	private static final String TEXT_HTML = "text/html;charset=iso-8859-15";
+	private static final String TEXT_HTML = "text/html;charset=UTF-8";
 	private static final String TEXT_PLAIN = "text/plain";
 
 	/**
