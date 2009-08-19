@@ -31,9 +31,10 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 
 	private static final long serialVersionUID = -7844502191961385383L;
 
-	private static final String TEXT_HTML = "text/html;charset=UTF-8";
-	private static final String TEXT_PLAIN = "text/plain";
+	private static final String TEXT_HTML_PREFIX = "text/html;charset=";
+	private static final String TEXT_PLAIN_PREFIX = "text/plain;charset=";
 
+	
 	/**
 	 * The recipient of the message
 	 */
@@ -47,6 +48,11 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	 */
 	private String plainTextContent;
 	/**
+	 * The encoding of the content
+	 */
+	private String contentEncoding;
+
+	/**
 	 * Map with includeable urls
 	 */
 	private Map<String, URL> imageMap;
@@ -57,6 +63,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	public HtmlMailMessage() {
 		super();
 		imageMap = new HashMap<String, URL>();
+		contentEncoding = "iso-8859-15";
 	}
 
 	@Override
@@ -89,7 +96,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 			// htmlMultipart.setSubType("text/html;charset=windows-1251");
 			// part for html source
 			MimeBodyPart htmlContent = new MimeBodyPart();
-			htmlContent.setContent(getHtmlContent(), TEXT_HTML);
+			htmlContent.setContent(getHtmlContent(), getHtmlContentType());
 
 			htmlMultipart.addBodyPart(htmlContent);
 
@@ -102,12 +109,12 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 			htmlContainer.setContent(htmlMultipart);
 
 		} else {
-			htmlContainer.setContent(getHtmlContent(), TEXT_HTML);
+			htmlContainer.setContent(getHtmlContent(), getHtmlContentType());
 		}
 
 		// subpart for plain
 		MimeBodyPart textAlternate = new MimeBodyPart();
-		textAlternate.setContent(getPlainTextContent(), TEXT_PLAIN);
+		textAlternate.setContent(getPlainTextContent(), getPlainContentType());
 
 		topLevel.addBodyPart(textAlternate);
 		topLevel.addBodyPart(htmlContainer);
@@ -124,6 +131,20 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 		imageContent.setDataHandler(new DataHandler(ds));
 		imageContent.setHeader("Content-ID", id);
 		return imageContent;
+	}
+	
+	/**
+	 * @return
+	 */
+	protected String getHtmlContentType(){
+		return TEXT_HTML_PREFIX + getContentEncoding();
+	}
+	
+	/**
+	 * @return
+	 */
+	protected String getPlainContentType(){
+		return TEXT_PLAIN_PREFIX + getContentEncoding();
 	}
 
 	/**
@@ -198,5 +219,21 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	 */
 	public void removeImageAttachment(String id) {
 		imageMap.remove(id);
+	}
+	
+	/**
+	 * Returns the content encoding
+	 * @return the content encoding
+	 */
+	public String getContentEncoding() {
+		return contentEncoding;
+	}
+
+	/**
+	 * Sets the content encoding
+	 * @param contentEncoding
+	 */
+	public void setContentEncoding(String contentEncoding) {
+		this.contentEncoding = contentEncoding;
 	}
 }
