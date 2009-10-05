@@ -78,10 +78,10 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 			//t.send(message.transformToMessage(mailSession), message.transformToMessage(mailSession).getAllRecipients());
 			Transport.send(message.transformToMessage(mailSession));
 		} catch(AddressException e) {
-			log.error("deliverMailMessage", e);
+			log.error("deliverMailMessage message :{"+message.toString()+"}", e);
 			throw new MessageDeliverException(e);
 		} catch(MessagingException e) {
-			log.error("deliverMailMessage", e);
+			log.error("deliverMailMessage message :{"+message.toString()+"}", e);
 			throw new MessageDeliverException(e);
 		}
 	}
