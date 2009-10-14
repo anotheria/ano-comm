@@ -2,10 +2,12 @@ package net.anotheria.communication.service;
 
 import java.util.List;
 
-import net.anotheria.asg.service.ASGService;
+import net.anotheria.anoprise.metafactory.Service;
 import net.anotheria.communication.data.AbstractMessage;
 
-public interface IMessagingService extends ASGService {
+
+
+public interface IMessagingService extends Service {
 
 	public boolean sendMessage(AbstractMessage msg) throws Exception;
 

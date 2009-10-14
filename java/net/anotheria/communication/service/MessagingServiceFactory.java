@@ -1,6 +1,6 @@
 package net.anotheria.communication.service;
 
-import net.anotheria.asg.metafactory.ServiceFactory;
+import net.anotheria.anoprise.metafactory.ServiceFactory;
 
 /**
  * Creates a new messaging service instance.
