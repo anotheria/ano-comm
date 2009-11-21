@@ -17,7 +17,13 @@ import net.anotheria.communication.service.IMessageTypes;
  */
 public abstract class AbstractMailMessage extends AbstractMessage implements Serializable {
 
+	public static final String DEFAULT_ENCODING = "iso-8859-15";
+	
 	private static final long serialVersionUID = -4454530548825883428L;
+	/**
+	 * The encoding of the content
+	 */
+	private String contentEncoding;
 	/**
 	 * Sender address of the message
 	 */
@@ -43,6 +49,16 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 	 */
 	private Map<String, String> headers = new HashMap<String, String>();
 
+	
+	
+	AbstractMailMessage(){
+		this(DEFAULT_ENCODING);
+	}
+	
+	AbstractMailMessage(String aContentEncoding){
+		this.contentEncoding = aContentEncoding;
+	}
+	
 	/**
 	 * @see AbstractMessage#getMessageType()
 	 */
@@ -185,5 +201,21 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 			String val = headers.get(key);
 			msg.addHeader(key, val);
 		}
+	}
+	
+	/**
+	 * Returns the content encoding
+	 * @return the content encoding
+	 */
+	public String getContentEncoding() {
+		return contentEncoding;
+	}
+
+	/**
+	 * Sets the content encoding
+	 * @param contentEncoding
+	 */
+	public void setContentEncoding(String contentEncoding) {
+		this.contentEncoding = contentEncoding;
 	}
 }

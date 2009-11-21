@@ -10,8 +10,13 @@
         <dependency org="org.apache" name="log4j" rev="stable" transitive="false"/>
         <dependency org="anotheria.net" name="ano-util" rev="latest" transitive="true"/>
 
+		<!-- What is this?
         <dependency org="com.sun" name="mail" rev="stable" transitive="false"/>
         <dependency org="com.sun" name="activation" rev="stable" transitive="false"/>
+         -->
+        <dependency org="javax.mail" name="mail" rev="stable" transitive="false" >
+            <artifact name="mail" ext="jar"/>
+        </dependency>
 
         <dependency org="java.net" name="configureme" rev="latest" transitive="true" changing="true"/>
 		<!--  as soon as configureme is managed directly by ivy, this dependency should be obsolete -->

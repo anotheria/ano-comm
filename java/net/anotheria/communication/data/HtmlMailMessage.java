@@ -47,10 +47,6 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	 * The plain text content part
 	 */
 	private String plainTextContent;
-	/**
-	 * The encoding of the content
-	 */
-	private String contentEncoding;
 
 	/**
 	 * Map with includeable urls
@@ -63,7 +59,6 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	public HtmlMailMessage() {
 		super();
 		imageMap = new HashMap<String, URL>();
-		contentEncoding = "iso-8859-15";
 	}
 
 	@Override
@@ -221,19 +216,4 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 		imageMap.remove(id);
 	}
 	
-	/**
-	 * Returns the content encoding
-	 * @return the content encoding
-	 */
-	public String getContentEncoding() {
-		return contentEncoding;
-	}
-
-	/**
-	 * Sets the content encoding
-	 * @param contentEncoding
-	 */
-	public void setContentEncoding(String contentEncoding) {
-		this.contentEncoding = contentEncoding;
-	}
 }

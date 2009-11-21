@@ -17,13 +17,24 @@ import javax.mail.internet.MimeMessage;
  */
 public class SimpleMailMessage extends AbstractMailMessage implements Serializable {
 
+	private static final String MIME_TYPE_PREFIX = "text/plain; charset=";
+	
 	private static final long serialVersionUID = -391021925964562176L;
 	private String recipient;
 
+	public SimpleMailMessage(){
+		super();
+	}
+	
+	public SimpleMailMessage(String aContentEncoding){
+		super(aContentEncoding);
+	}
+	
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
-		Message msg = new MimeMessage(session);
+		MimeMessage msg = new MimeMessage(session);
+//		msg.setHeader("Content-Type", getPlainContentType());
 		try {
-			msg.setFrom(new InternetAddress(getSender(), getSenderName()));
+			msg.setFrom(new InternetAddress(getSender(), getSenderName(), getContentEncoding()));
 		} catch (UnsupportedEncodingException e) {
 			msg.setFrom(new InternetAddress(getSender()));
 		}
@@ -33,8 +44,11 @@ public class SimpleMailMessage extends AbstractMailMessage implements Serializab
 		replyTo[0] = new InternetAddress(getReplyTo() != null ? getReplyTo() : getSender());
 		msg.setReplyTo(replyTo);
 		msg.setRecipients(Message.RecipientType.TO, receivers);
-		msg.setSubject((getSubject() != null ? getSubject() : ""));
-		msg.setContent(getMessage() != null ? getMessage() : "", "text/plain");
+		msg.setSubject((getSubject() != null ? getSubject() : ""), getContentEncoding());
+		msg.setContent(getMessage() != null ? getMessage() : "", getPlainContentType());
+		
+
+		
 		return msg;
 	}
 
@@ -58,6 +72,14 @@ public class SimpleMailMessage extends AbstractMailMessage implements Serializab
 	}
 
 	public String toString() {
-		return super.toString() + " to:" + recipient;
+		return super.toString() + " to:" + recipient ;
+	}
+
+	
+	/**
+	 * @return
+	 */
+	protected String getPlainContentType(){
+		return MIME_TYPE_PREFIX + getContentEncoding();
 	}
 }
