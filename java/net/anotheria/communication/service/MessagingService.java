@@ -46,7 +46,7 @@ public class MessagingService implements IMessagingService {
 	}
 
 	public List<Exception> getErrors(int messageType) {
-		IMessageQueue queue = (IMessageQueue) queues.get(new Integer(messageType));
+		IMessageQueue queue = queues.get(new Integer(messageType));
 		if (queue == null)
 			throw new RuntimeException("Unsupported message type: " + messageType);
 		return queue.getErrors();

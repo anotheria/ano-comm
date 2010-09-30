@@ -53,9 +53,9 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 			MimeBodyPart filePart = new MimeBodyPart();
 
 			// attach the file to the message
-			FileDataSource fds = new FileDataSource(((MailFileEntry) files.get(i)).getFile());
+			FileDataSource fds = new FileDataSource( files.get(i).getFile());
 			filePart.setDataHandler(new DataHandler(fds));
-			filePart.setFileName(((MailFileEntry) files.get(i)).getFilename());
+			filePart.setFileName( files.get(i).getFilename());
 			mp.addBodyPart(filePart);
 
 		}

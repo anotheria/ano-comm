@@ -99,7 +99,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 			Iterator<Map.Entry<String, URL>> allImages = imageMap.entrySet().iterator();
 			while (allImages.hasNext()) {
 				Map.Entry<String, URL> imageDef = allImages.next();
-				htmlMultipart.addBodyPart(generateImageContent((URL) imageDef.getValue(), (String) imageDef.getKey()));
+				htmlMultipart.addBodyPart(generateImageContent(imageDef.getValue(), imageDef.getKey()));
 			}
 			htmlContainer.setContent(htmlMultipart);
 
