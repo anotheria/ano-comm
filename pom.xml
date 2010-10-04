@@ -9,24 +9,24 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>ano-comm</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <name>anotheria.net communication utils</name>
 
   <dependencies>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-prise</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>configureme</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</dependency>
 	
 	<dependency>
@@ -40,9 +40,9 @@
   
 
 	<scm>
-		<url>svn:svn://svn.anotheria.net/opensource/ano-comm/tags/ano-comm-1.0.0</url>
-		<connection>scm:svn:svn://svn.anotheria.net/opensource/ano-comm/tags/ano-comm-1.0.0</connection>
-		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/ano-comm/tags/ano-comm-1.0.0</developerConnection>
+		<url>svn:svn://svn.anotheria.net/opensource/ano-comm/trunk</url>
+		<connection>scm:svn:svn://svn.anotheria.net/opensource/ano-comm/trunk</connection>
+		<developerConnection>scm:svn:svn://svn.anotheria.net/opensource/ano-comm/trunk</developerConnection>
 	</scm>
 
 </project>
