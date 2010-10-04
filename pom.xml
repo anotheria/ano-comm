@@ -3,14 +3,14 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>net.anotheria</groupId>
   <artifactId>ano-comm</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>ano-utils</name>
+  <name>anotheria.net communication utils</name>
 
   <dependencies>
 	<dependency>
