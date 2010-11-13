@@ -3,7 +3,7 @@
   <parent>
 	<groupId>net.anotheria</groupId>
 	<artifactId>parent</artifactId>
-	<version>1.0</version>
+	<version>1.4</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -16,23 +16,23 @@
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-util</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>ano-prise</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	<dependency>
 		<groupId>net.anotheria</groupId>
 		<artifactId>configureme</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.0.0</version>
 	</dependency>
 	
 	<dependency>
     	<groupId>javax.mail</groupId>
     	<artifactId>mail</artifactId>
-    	<version>1.4.1</version>
+    	<version>${mail.version}</version>
 	</dependency>
 
   </dependencies>
