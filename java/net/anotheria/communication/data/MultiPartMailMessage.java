@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.activation.DataHandler;
+import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -15,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
 /**
  * @author lanny
@@ -27,10 +29,12 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 	private static final long serialVersionUID = 6233173875811365443L;
 
 	private List<MailFileEntry> files;
+	private List<MailInmemoryFileEntry> inmemoryFiles;
 
 	public MultiPartMailMessage() {
 		super();
 		files = new Vector<MailFileEntry>(3);
+		inmemoryFiles = new Vector<MailInmemoryFileEntry>(3);
 	}
 
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
@@ -49,15 +53,26 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 		Multipart mp = new MimeMultipart();
 		mp.addBodyPart(mbp1);
 
+		// Add files
 		for (int i = 0; i < files.size(); i++) {
 			MimeBodyPart filePart = new MimeBodyPart();
-
+			
 			// attach the file to the message
 			FileDataSource fds = new FileDataSource( files.get(i).getFile());
 			filePart.setDataHandler(new DataHandler(fds));
 			filePart.setFileName( files.get(i).getFilename());
 			mp.addBodyPart(filePart);
+		}
+		
+		// Add inmemory files
+		for (int i = 0; i < inmemoryFiles.size(); i++) {
+			MimeBodyPart filePart = new MimeBodyPart();
 
+			// attach the file to the message
+			DataSource fds = new ByteArrayDataSource(inmemoryFiles.get(i).getData() != null ? inmemoryFiles.get(i).getData() : new byte[]{}, "application/octet-stream");
+			filePart.setDataHandler(new DataHandler(fds));
+			filePart.setFileName(inmemoryFiles.get(i).getFilename() != null ? inmemoryFiles.get(i).getFilename() : "unknown");
+			mp.addBodyPart(filePart);
 		}
 
 		// add the Multipart to the message
@@ -80,6 +95,15 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 	public List<MailFileEntry> getFiles() {
 		return files;
 	}
+	
+	/**
+	 * Returns the inmemory files.
+	 * 
+	 * @return List
+	 */
+	public List<MailInmemoryFileEntry> getInmemoryFiles() {
+		return inmemoryFiles;
+	}
 
 	/**
 	 * Sets the files.
@@ -91,12 +115,26 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 		this.files = files;
 	}
 
+	/**
+	 * Sets the inmemory files.
+	 * 
+	 * @param inmemoryFiles
+	 *            The files to set
+	 */
+	public void setInmemoryFiles(List<MailInmemoryFileEntry> inmemoryFiles) {
+		this.inmemoryFiles = inmemoryFiles;
+	}
+
 	public void addFile(MailFileEntry f) {
 		files.add(f);
 	}
+	
+	public void addInmemoryFile(MailInmemoryFileEntry f) {
+		inmemoryFiles.add(f);
+	}
 
 	public String toString() {
-		return super.toString() + " Files:" + files;
+		return super.toString() + " Files:" + files + ", Invemory files: " + inmemoryFiles;
 	}
 
 }
