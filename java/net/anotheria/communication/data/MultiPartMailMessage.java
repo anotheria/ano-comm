@@ -38,12 +38,12 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 	}
 
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
-		Message msg = new MimeMessage(session);
+		MimeMessage msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(getSender()));
 		InternetAddress[] receivers = new InternetAddress[1];
 		receivers[0] = new InternetAddress(getRecipient());
 		msg.setRecipients(Message.RecipientType.TO, receivers);
-		msg.setSubject((getSubject() != null ? getSubject() : ""));
+		msg.setSubject((getSubject() != null ? getSubject() : ""), getContentEncoding());
 
 		// create and fill the first message part
 		MimeBodyPart mbp1 = new MimeBodyPart();

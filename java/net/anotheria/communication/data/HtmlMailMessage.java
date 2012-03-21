@@ -64,7 +64,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	@Override
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
 
-		Message msg = new MimeMessage(session);
+		MimeMessage msg = new MimeMessage(session);
 		try {
 			msg.setFrom(new InternetAddress(getSender(), getSenderName()));
 		} catch (UnsupportedEncodingException e) {
@@ -75,7 +75,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 		InternetAddress[] replyTo = new InternetAddress[1];
 		replyTo[0] = new InternetAddress(getReplyTo() != null ? getReplyTo() : getSender());
 		msg.setRecipients(Message.RecipientType.TO, receivers);
-		msg.setSubject((getSubject() != null ? getSubject() : ""));
+		msg.setSubject((getSubject() != null ? getSubject() : ""), getContentEncoding());
 		msg.setReplyTo(replyTo);
 
 		// toplevel/alternative provides the client with the possibility to choose its best view
