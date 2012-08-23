@@ -1,12 +1,5 @@
 package net.anotheria.communication.data;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.URLDataSource;
@@ -17,8 +10,13 @@ import javax.mail.Session;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * This class implements an <code>AbstractMailMessage</code> to send an HTML-Mail with alternative Plain-Text-View. Images may be attached
@@ -64,7 +62,7 @@ public class HtmlMailMessage extends AbstractMailMessage implements Serializable
 	@Override
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
 
-		MimeMessage msg = new MimeMessage(session);
+        ANOMimeMessage msg = new ANOMimeMessage(session);
 		try {
 			msg.setFrom(new InternetAddress(getSender(), getSenderName()));
 		} catch (UnsupportedEncodingException e) {

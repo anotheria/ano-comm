@@ -31,7 +31,7 @@ public class SimpleMailMessage extends AbstractMailMessage implements Serializab
 	}
 	
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
-		MimeMessage msg = new MimeMessage(session);
+        ANOMimeMessage msg = new ANOMimeMessage(session);
 //		msg.setHeader("Content-Type", getPlainContentType());
 		try {
 			msg.setFrom(new InternetAddress(getSender(), getSenderName(), getContentEncoding()));

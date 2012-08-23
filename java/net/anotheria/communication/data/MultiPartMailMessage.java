@@ -1,9 +1,5 @@
 package net.anotheria.communication.data;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Vector;
-
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
@@ -11,12 +7,11 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.*;
 import javax.mail.util.ByteArrayDataSource;
+import java.util.Date;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * @author lanny
@@ -38,7 +33,7 @@ public class MultiPartMailMessage extends SimpleMailMessage {
 	}
 
 	public Message transformToMessage(Session session) throws AddressException, MessagingException {
-		MimeMessage msg = new MimeMessage(session);
+		ANOMimeMessage msg = new ANOMimeMessage(session);
 		msg.setFrom(new InternetAddress(getSender()));
 		InternetAddress[] receivers = new InternetAddress[1];
 		receivers[0] = new InternetAddress(getRecipient());
