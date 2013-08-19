@@ -3,11 +3,9 @@ package net.anotheria.communication;
 import net.anotheria.communication.data.HtmlMailMessage;
 import net.anotheria.communication.service.MessagingService;
 
-import org.apache.log4j.BasicConfigurator;
-
 public class SendHtmlMail {
 	public static void main(String a[]) throws Exception{
-		BasicConfigurator.configure();
+//		BasicConfigurator.configure();
 		MessagingService service = MessagingService.getInstance();
 		HtmlMailMessage mail = new HtmlMailMessage();
 		mail.setSender("registration@adoptive.de");

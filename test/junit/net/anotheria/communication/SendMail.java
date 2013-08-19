@@ -1,13 +1,11 @@
 package net.anotheria.communication;
 
-import org.apache.log4j.BasicConfigurator;
-
 import net.anotheria.communication.data.SimpleMailMessage;
 import net.anotheria.communication.service.MessagingService;
 
 public class SendMail {
 	public static void main(String a[]) throws Exception{
-		BasicConfigurator.configure();
+//		BasicConfigurator.configure();
 		MessagingService service = MessagingService.getInstance();
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setSender("scoreshop@anotheria.net");

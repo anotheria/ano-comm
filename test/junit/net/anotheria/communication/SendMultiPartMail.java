@@ -4,11 +4,9 @@ import net.anotheria.communication.data.MailInmemoryFileEntry;
 import net.anotheria.communication.data.MultiPartMailMessage;
 import net.anotheria.communication.service.MessagingService;
 
-import org.apache.log4j.BasicConfigurator;
-
 public class SendMultiPartMail {
 	public static void main(String a[]) throws Exception{
-		BasicConfigurator.configure();
+//		BasicConfigurator.configure();
 		MessagingService service = MessagingService.getInstance();
 		MultiPartMailMessage mail = new MultiPartMailMessage();
 		mail.setSender("registration@adoptive.de");
