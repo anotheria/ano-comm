@@ -1,6 +1,12 @@
 package net.anotheria.communication.service;
 
-import java.util.Properties;
+import net.anotheria.communication.data.AbstractMailMessage;
+import net.anotheria.communication.data.AbstractMessage;
+import net.anotheria.communication.exceptions.MessageDeliverException;
+import net.anotheria.communication.exceptions.MessagingServiceException;
+import net.anotheria.communication.exceptions.UnsupportedMessageTypeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
@@ -9,14 +15,7 @@ import javax.mail.Provider;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
-
-import net.anotheria.communication.data.AbstractMailMessage;
-import net.anotheria.communication.data.AbstractMessage;
-import net.anotheria.communication.exceptions.MessageDeliverException;
-import net.anotheria.communication.exceptions.MessagingServiceException;
-import net.anotheria.communication.exceptions.UnsupportedMessageTypeException;
-
-import org.apache.log4j.Logger;
+import java.util.Properties;
 
 
 /**
@@ -27,7 +26,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 
 	private Session mailSession;
 	
-	private static Logger log = Logger.getLogger(MailMessageDeliverer.class);
+	private static Logger log = LoggerFactory.getLogger(MailMessageDeliverer.class);
 	
 	private MailDelivererConfig config;
 	
@@ -44,7 +43,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
  		
 		mailSession.setDebug(config.isDebug());
 		//mailSession.setPasswordAuthentication(new URLName(resServer),new PasswordAuthentication(resUser, resPassword));
-		log.debug("initialized with:"+config);
+		log.debug("initialized with:"+ config);
 		log.debug("\n\n************************************************");
 		log.debug("* to reconfigure this provider set:            *");
 		log.debug("* mail.smtp.host                               *");
@@ -53,8 +52,8 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 		log.debug("* mail.smtp.debug                              *");
 		log.debug("* mail.smtp.popbeforesmtp                      *");
 		log.debug("************************************************\n\n");
-		log.info("Initialized with: "+config);
-		log.info("mail.mime.charset="+System.getProperty("mail.mime.charset"));
+		log.info("Initialized with: " + config);
+		log.info("mail.mime.charset=" + System.getProperty("mail.mime.charset"));
 	}
 
 	/**

@@ -1,10 +1,11 @@
 package net.anotheria.communication.service;
 
-import org.apache.log4j.Logger;
 import org.configureme.ConfigurationManager;
 import org.configureme.annotations.AfterConfiguration;
 import org.configureme.annotations.Configure;
 import org.configureme.annotations.ConfigureMe;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ConfigureMe(name="mail")
 public class MailDelivererConfig {
@@ -15,7 +16,7 @@ public class MailDelivererConfig {
 	@Configure private boolean debug;
 	@Configure private boolean popBeforeSmtp;
 
-	private static Logger log = Logger.getLogger(MailDelivererConfig.class);
+	private static Logger log = LoggerFactory.getLogger(MailDelivererConfig.class);
 
 	public MailDelivererConfig(){
 		ConfigurationManager.INSTANCE.configure(this);
