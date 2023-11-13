@@ -3,12 +3,12 @@ package net.anotheria.communication.data;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.AddressException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeMessage;
 
 /**
  * @author skyball

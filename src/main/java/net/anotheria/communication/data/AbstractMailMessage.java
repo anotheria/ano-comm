@@ -5,10 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.AddressException;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.AddressException;
 
 import net.anotheria.communication.service.IMessageTypes;
 

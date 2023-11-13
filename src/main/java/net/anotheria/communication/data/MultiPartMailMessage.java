@@ -1,14 +1,14 @@
 package net.anotheria.communication.data;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.internet.*;
-import javax.mail.util.ByteArrayDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.internet.*;
+import jakarta.mail.util.ByteArrayDataSource;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;

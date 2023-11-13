@@ -2,9 +2,9 @@ package net.anotheria.communication.data;
 
 import net.anotheria.util.StringUtils;
 
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
 
 /**
  * Class extends of MimeMessage with override updateMessageID method.

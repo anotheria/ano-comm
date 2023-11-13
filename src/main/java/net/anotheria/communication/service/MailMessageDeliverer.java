@@ -8,13 +8,13 @@ import net.anotheria.communication.exceptions.UnsupportedMessageTypeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Provider;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.NoSuchProviderException;
+import jakarta.mail.PasswordAuthentication;
+import jakarta.mail.Provider;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.AddressException;
 import java.util.Properties;
 
 
@@ -97,7 +97,7 @@ public class MailMessageDeliverer implements IMessageDeliverer {
 		}
 	}
 	
-	   private class SMTPAuthenticator extends javax.mail.Authenticator {
+	   private class SMTPAuthenticator extends jakarta.mail.Authenticator {
 	        public PasswordAuthentication getPasswordAuthentication() {
 	           String username = config.getUser();
 	           String password = config.getPassword();
