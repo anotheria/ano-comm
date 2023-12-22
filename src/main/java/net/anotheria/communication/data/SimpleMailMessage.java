@@ -12,8 +12,6 @@ import jakarta.mail.internet.MimeMessage;
 
 /**
  * @author skyball
- * 
- *         To change this generated comment edit the template variable "typecomment": Window>Preferences>Java>Templates.
  */
 public class SimpleMailMessage extends AbstractMailMessage implements Serializable {
 
@@ -62,10 +60,7 @@ public class SimpleMailMessage extends AbstractMailMessage implements Serializab
 	}
 
 	/**
-	 * Sets the receipient.
-	 * 
-	 * @param receipient
-	 *            The receipient to set
+	 * Sets the recipient.
 	 */
 	public void setRecipient(String recipient) {
 		this.recipient = recipient;

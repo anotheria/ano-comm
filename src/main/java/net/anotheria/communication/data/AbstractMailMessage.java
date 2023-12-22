@@ -134,9 +134,6 @@ public abstract class AbstractMailMessage extends AbstractMessage implements Ser
 
 	/**
 	 * Sets the sender.
-	 * 
-	 * @param sender
-	 *            The sender to set
 	 */
 	public void setReplyTo(String replyTo) {
 		this.replyTo = replyTo;
